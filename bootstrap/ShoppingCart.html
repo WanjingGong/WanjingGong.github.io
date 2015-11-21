@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8"/>
+		<title>Maroon 5</title>
+
+		<link href="http://fonts.googleapis.com/css?family=Cookie|Open+Sans:400,700" rel="stylesheet" />
+
+		<!-- The main CSS file -->
+		<link href="style.css" rel="stylesheet" />
+<style>
+ #column1{padding:10px;margin:5px;width:200px;background-color:lavender;float:left}
+ #column2{padding:10px;margin:5px;width:200px;background-color:mistyrose;float:left}
+#column3{padding:10px;margin:5px;width:200px;background-color:lavender;float:left}
+ #column4{padding:10px;margin:5px;width:200px;background-color:mistyrose;float:left}
+#column5{padding:10px;margin:5px;width:200px;background-color:lavender;float:left}
+ #column6{padding:10px;margin:5px;width:200px;background-color:mistyrose;float:left}
+
+ #columnwrapper{
+             width:690px;
+             margin:auto;
+
+                            }
+
+.clear{
+clear:both;
+}
+    
+    h2{
+        color:darkturquoise;
+        font-size: 50px;
+    }
+</style>
+		<!--[if lt IE 9]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+    </head>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+<script src="Adele.js"></script>
+<script src="JohnLegend.js"></script>
+<script src="Justin.js"></script>
+<script src="TaylorSwift.js"></script>
+<script src="BeyoncéKnowles.js"></script>
+
+    <script>
+    // 页面加载完成后,再加载模块
+      angular.element(document).ready(function() {
+      angular.bootstrap(document.getElementById("column1"),["Maroon5"]);
+      angular.bootstrap(document.getElementById("column2"),["Adele"]);
+      angular.bootstrap(document.getElementById("column3"),["Justin"]);
+      angular.bootstrap(document.getElementById("column4"),["JohnLegend"]);
+      angular.bootstrap(document.getElementById("column5"),["Taylor"]);
+      angular.bootstrap(document.getElementById("column6"),["BeyoncéKnowles"]);
+      
+     
+    });
+    
+  </script>
+  
+	<!-- Declare a new AngularJS app and associate the controller -->
+   
+<body>
+  
+    <body>
+        <h2> Your items!</h2>
+     <div  id="columnwrapper">
+         <div  id="column1" ng-controller="Maroon5Controller">
+ <h1>Maroon5</h1>
+            <ul>
+<!-- Loop through the services array, assign a click handler, and set or
+remove the "active" css class if needed -->
+<li ng-repeat="CD in CD" >
+<span ng-switch on="CD.active">
+                    <span ng-switch-when="true">{{CD.name}}<span>{{CD.price|currency}}</span></span>
+                </span>
+                </li>
+</ul>
+
+<div class="total">
+<!-- Calculate the total price of all chosen services. Format it as currency. -->
+Total: <span>{{total() | currency}}</span>
+</div>
+       
+             </div>
+            
+         <div  id="column2" ng-controller="AdeleController">
+              <h1>Adele</h1>
+
+<ul>
+<!-- Loop through the services array, assign a click handler, and set or
+remove the "active" css class if needed -->
+<li ng-repeat="CD in CD" >
+<span ng-switch on="CD.active">
+                    <span ng-switch-when="true">{{CD.name}}<span>{{CD.price|currency}}</span></span>
+                </span>
+                </li>
+</ul>
+
+<div class="total">
+<!-- Calculate the total price of all chosen services. Format it as currency. -->
+Total: <span>{{total() | currency}}</span>
+</div>
+       
+             </div>
+            <div  id="column3" ng-controller="JustinController">
+
+<h1>Justin</h1>
+
+<ul>
+<!-- Loop through the services array, assign a click handler, and set or
+remove the "active" css class if needed -->
+<li ng-repeat="CD in CD" >
+<span ng-switch on="CD.active">
+                    <span ng-switch-when="true">{{CD.name}}<span>{{CD.price|currency}}</span></span>
+                </span>
+                </li>
+</ul>
+
+<div class="total">
+<!-- Calculate the total price of all chosen services. Format it as currency. -->
+Total: <span>{{total() | currency}}</span>
+</div>
+       
+             </div>
+         
+         </div>
+        <div id="columnwrapper">
+                  <div  id="column4" ng-controller="JohnLegendController">
+
+<h1>JohnLegend</h1>
+
+<ul>
+<!-- Loop through the services array, assign a click handler, and set or
+remove the "active" css class if needed -->
+<li ng-repeat="CD in CD" >
+<span ng-switch on="CD.active">
+                    <span ng-switch-when="true">{{CD.name}}<span>{{CD.price|currency}}</span></span>
+                </span>
+                </li>
+</ul>
+
+<div class="total">
+<!-- Calculate the total price of all chosen services. Format it as currency. -->
+Total: <span>{{total() | currency}}</span>
+</div>
+       
+             </div>
+                  <div  id="column5"  ng-controller="TaylorController">
+
+<h1>Taylor</h1>
+
+<ul>
+<!-- Loop through the services array, assign a click handler, and set or
+remove the "active" css class if needed -->
+<li ng-repeat="CD in CD" >
+<span ng-switch on="CD.active">
+                    <span ng-switch-when="true">{{CD.name}}<span>{{CD.price|currency}}</span></span>
+                </span>
+                </li>
+</ul>
+
+<div class="total">
+<!-- Calculate the total price of all chosen services. Format it as currency. -->
+Total: <span>{{total() | currency}}</span>
+</div>
+       
+             </div>
+<div  id="column6" ng-controller="BeyoncéKnowlesController">
+
+<h1>Beyoncéx</h1>
+
+<ul>
+<!-- Loop through the services array, assign a click handler, and set or
+remove the "active" css class if needed -->
+<li ng-repeat="CD in CD" >
+<span ng-switch on="CD.active">
+                    <span ng-switch-when="true">{{CD.name}}<span>{{CD.price|currency}}</span></span>
+                </span>
+                </li>
+</ul>
+
+<div class="total">
+<!-- Calculate the total price of all chosen services. Format it as currency. -->
+Total: <span>{{total() | currency}}</span>
+</div>
+</div>
+</div>
+
+<div>
+<strong><a href="index.html">Go back</a>
+</div>
+<!-- Include AngularJS from Google's CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+<script src="Maroon5.js"></script>
+        <script src="Adele.js"></script>
+        <script src="JohnLegend.js"></script>
+        <script src="Justin.js"></script>
+        <script src="TaylorSwift.js"></script>
+        <script src="Beyoncé Knowles.js"></script>
+ 
+</body>
+    
+  </body>
+	
+</html>
