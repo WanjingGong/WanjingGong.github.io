@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
+
+    <title>SVG</title>
+
+    <style>
+      body {
+	  padding:0;
+	  margin:0;
+	  position: relative;
+	  background: #ffffff;
+      }
+      button {
+  position: relative;
+  display: inline-block;
+  padding: .6em;
+  background: linear-gradient(#fff, #ccc), lightblue;
+  border-radius: 10em;
+  border: 0 solid rgba(208,208,208,1.000);
+  width: @size;
+  height: @size;
+  margin-right: 20px;
+  box-shadow: 0 (@size * .06) (@size * .07) rgba(0,0,0,.4);
+}
+
+button:hover {
+    background: linear-gradient(#f5f5f5, #b9b9b9), #c9c5c9 ;
+
+}
+
+button:before, button:after {
+  position: absolute;
+  content: " ";
+  
+}
+  
+button:active {
+  top: (@size * .05);
+  box-shadow: 0 (@size * .02) (@size * .03) rgba(0,0,0,.4);
+}
+	  .score_class
+	  {
+	  color:#D33824;
+	  background: #fffaaa;
+	  font-size: 20px;
+	  font-family: "Arial", Times, serif;
+	   font-weight: bold;
+	  }
+
+	  #COORDS{
+	  color: #000000;
+	  font-size: 10px;
+	  margin-left: 10px;
+	  }
+	  #BCOORDS{
+	  color: #000000;
+	  font-size: 10px;
+	  	  margin-left: 10px;
+	  }
+	  #SCORE
+	  {color: #000000;
+	  font-size: 10px;
+	  	  margin-left: 10px;
+		  
+	  }
+      #ctr{
+	   margin: auto;
+       position: absolute;
+       top: 0; left: 0; bottom: 0; right: 0;
+	 }
+	 #CENTR
+	 {
+	 margin:auto;
+	 position: relative;
+	 width: 600px;
+     height: auto;
+    
+	 }
+	 #canvas
+	 {
+	 margin:auto;
+	 position: relative;
+	 width: auto;
+     height: auto;
+     background: pink;
+	 
+	 }
+	 #msg
+	 {color:#F6F6F6;
+	 font-family: Arial, Verdana;
+	 margin-left: 10px;
+	 }
+    </style>
+
+    <!-- Inline scripts are forbidden in Firefox OS apps (CSP restrictions),
+         so we use a script file. -->
+    
+
+  </head>
+
+  <body >
+    <!-- This code is in the public domain. Enjoy! -->
+	<div id="CENTR">
+      
+	  <canvas id="canvas" style="border: 1px solid grey;"></canvas>
+	   
+	   <div id="canvas2" style="float:right;border: 1px solid grey;width:290px;height:auto;margin: 0;padding:0;">
+	   
+        <p id="SCORE">SCORE:0<p>
+        <p id="COORDS">MAX SCORE:0<p>
+	    <p id="BCOORDS">COORD:0<p>
+	   </div>
+	   <div class="SIDE_SCORE">
+        
+       </div>
+	<br>	
+	 <p style="text-align:center"> <button onclick="loop();" >START</button>
+	  <button onclick="end_loop();" >PAUSE</button></p>
+    
+	</div>
+<script>
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+var raf;
+var keys = {};
+var score = 0;
+var max_score=0;
+window.addEventListener('keydown', function (e) {
+  keys[e.keyCode] = true;
+  e.preventDefault();
+  console.log(e.keyCode);
+});
+
+window.addEventListener('keyup', function (e) {
+  delete keys[e.keyCode];
+});
+
+var ball = {
+  x: 20,
+  y: 30,
+  vx: 2,
+  vy: 1,
+  radius: 6,
+  color: 'lightblue',
+  draw: function() {
+    ctx.beginPath();
+	var my_gradient=ctx.createLinearGradient(0,0,0,150);
+    my_gradient.addColorStop(0,this.color);
+    my_gradient.addColorStop(1,"lightblue");
+    
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, true);
+    ctx.closePath();
+    ctx.fillStyle = my_gradient;
+    ctx.fill();
+	ctx.save();
+  },
+  runball: function()
+  {ball.x += ball.vx;
+  ball.y += ball.vy;
+  document.getElementById('BCOORDS').innerHTML ="COORDS: "+ball.x+":"+ball.y;
+  }
+};
+
+var tank = {
+   x: 20,
+   y: canvas.height-30,
+   color: 'lightblue',
+   build: function() {
+    ctx.beginPath();
+    ctx.fillStyle= 'lightblue';
+	ctx.fillRect(this.x, this.y,50,10);
+    ctx.closePath();
+    ctx.fill();
+   },
+   
+   check: function()
+   {
+if(37 in keys)
+{tank.x -=10;}
+
+if(39 in keys)
+{tank.x +=10;  }
+
+   
+console.log(tank.x);
+   }
+   };
+
+   
+function update(tank){
+if(tank.x > canvas.width-60)
+{tank.x=canvas.width-50;}
+if(tank.x  < 0)
+{tank.x=0;}
+ }
+
+
+function check_boundries(ball)
+{
+if (ball.y  > canvas.height - ball.radius || ball.y  <= 0+ball.radius) {
+  ball.vy = -ball.vy;
+}
+if (ball.x  > canvas.width - ball.radius || ball.x  <= 0+ball.radius) {
+  ball.vx = -ball.vx;
+  //clear();
+}
+}
+
+function collision(ball,tank)
+{
+ if(ball.y==tank.y-ball.radius)
+ {
+  if(ball.x>=tank.x && ball.x <= tank.x+60)
+ {
+ ball.vy= -ball.vy;
+ score +=1;
+ document.getElementById('SCORE').innerHTML ="POINTS: "+score;
+ document.getElementById('COORDS').innerHTML ="MAX_SCORE: "+max_score;
+ console.log(tank.x,ball.x,ball.y);	
+ }
+ }
+
+
+}
+
+function loop() {
+ ctx.clearRect(0,0, canvas.width, canvas.height);
+ 
+  tank.build();
+  update(tank);
+   ball.draw();
+  ball.runball();
+    collision(ball,tank);
+  tank.check(); 
+  check_boundries(ball);
+
+
+    raf = window.requestAnimationFrame(loop);
+if(ball.y==canvas.height-ball.radius)
+{
+ball.y=10;
+if(score>=max_score)
+{
+max_score=score;
+}
+score = 0;
+window.cancelAnimationFrame(raf);
+console.log('reached');
+ }
+
+}
+
+function end_loop()
+{
+window.cancelAnimationFrame(raf);
+}
+    
+      </script>
+</body>
+</html>
